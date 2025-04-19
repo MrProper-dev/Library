@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Выдать книгу</title>
+        <script src="/javascript/scrript_for_loan_book_page.js"></script>
+        <link rel="stylesheet" href="/css/style_for_loan_book_page.css">
+    </head>
+    <body>
+        <div class="header">
+            <a href="/library" class="home-button">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                </svg>
+            </a>
+            <h1>Выдать книгу</h1>
+        </div>
+
+        <div class="main">
+            <form id="form" th:action="'/books/loan/' + ${book.id}" method="post">
+
+                <div class="form-group">
+                    <p><strong>Название: </strong><span th:text="${book.title}" >Название</span></p>
+                    <p><strong>Год выпуска: </strong><span th:text="${book.publicationYear}" >год</span></p>
+                    <p><strong>Автор: </strong><span th:text="${book.author.fullName}" >Автор</span></p>
+                    <p><strong>Издание: </strong><span th:text="${book.publisher.name}" >Издание</span></p>
+                </div>
+                    
+                <div class="form-group">
+                    <p>Читатель</p>
+                    <div id="reader">
+                        <label for="reader-name">ФИО читателя</label>
+                        <input type="text"  id="reader-name" name="fullName" placeholder="ФИО" notEmpty>
+                        <label for="reader-passport">Номер и серия паспорта</label>
+                        <input type="text" id="reader-passport" name="passportNumber" placeholder="00 00 000000" notEmpty>
+                        <label for="reader-phone">Номер телефона</label>
+                        <input type="text" id="reader-phone" name="phone" placeholder="+7 999 999 99 99" notEmpty>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="return-date">Срок возврата</label>
+                    <input type="date" id="return-date" name="returnDate" notEmpty>
+                </div>
+            </form>
+            <button class="button" onclick="document.getElementById('confirmation').style.display='flex'">Выдать книгу</button>
+
+            <!-- Предупреждение -->
+            <div id="confirmation" class="confirmation">
+                <div class="confirmation-box">
+                    <p>Предупреждение: Вы точно хотите выдать книгу?</p>
+                    <button onclick="return sendSubmit()">OK</button>
+                    <button onclick="document.getElementById('confirmation').style.display='none'">Отмена</button>
+                </div>
+            </div>
+
+        </div>
+    </body>
+</html>

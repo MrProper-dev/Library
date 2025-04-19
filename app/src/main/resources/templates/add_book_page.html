@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/style_for_add_book_page.css">
+        <script src="/javascript/scrript_for_add_book_page.js"></script>
+        <title>Добавить книгу</title>
+    </head>
+    <body>
+        <div class="header">
+            <a href="/library" class="home-button">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                </svg>
+            </a>
+            <h1>Добавить новую книгу</h1>
+        </div>
+
+        <div class="main">
+            <form id="form" action="/books/add" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="title">Название книги</label>
+                    <input type="text" id="title" name="title" placeholder="Введите название книги" notEmpty>
+                </div>
+
+                <div class="form-group">
+                    <p>Автор</p>
+                    <div class="type">
+                        <label for="author-name">ФИО</label>
+                        <input type="text" id="author-name" name="author-name" placeholder="Иванов В.А." notEmpty>
+                        <label for="author-birth-year">Год рождения</label>
+                        <input type="number" id="author-birth-year" name="author-birth-year" placeholder="1999" max="2025" notEmpty>
+                        <label for="author-country">Страна</label>
+                        <input type="text" id="author-country" name="author-country" placeholder="Россия" notEmpty>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <p>Издание</p>
+                    <div class="type">
+                        <label for="publisher-name">Название</label>
+                        <input type="text" id="publisher-name" name="publisher-name" placeholder="Название" notEmpty>
+                        <label for="publisher-address">Адрес</label>
+                        <input type="text" id="publisher-address" name="publisher-address" placeholder="Город, улица, дом" notEmpty>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="genre">Жанр</label>
+                    <input id="genre" name="genre" placeholder="Введите название жанра" notEmpty>
+                </div>
+
+                <div class="form-group">
+                    <label for="publication-year">Год издания</label>
+                    <input type="number" id="publication-year" name="publication-year" placeholder="Введите год издания" min="0" max="2025" notEmpty>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Описание книги</label>
+                    <textarea id="description" name="description" rows="5" placeholder="Введите краткое описание книги"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Обложка</label>
+                    <input type="file" id="image" name="image" accept="image/*">
+                </div>
+            </form>
+            <button class="button" onclick="document.getElementById('confirmation').style.display='flex'">Добавить книгу</button>
+
+            <!-- Предупреждение -->
+            <div id="confirmation" class="confirmation">
+                <div class="confirmation-box">
+                    <p>Предупреждение: Вы точно хотите добавить книгу?</p>
+                    <button onclick="return sendSubmit()">OK</button>
+                    <button onclick="document.getElementById('confirmation').style.display='none'">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

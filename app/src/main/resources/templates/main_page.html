@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/style_for_main_page.css">
+        <script src="/javascript/scrript_for_search_engine.js"></script>
+        <title>Библиотека</title>
+    </head>
+    <body>
+
+        <div class="header">
+            <h1>Библиотека</h1>
+        </div>
+        
+        <div class="main">
+            <form class="search-form">
+                <input type="text" class="search-input" placeholder="Поиск по названию или автору" oninput="handleSearchInput(this.value)">
+                <div class="search-results"></div>
+            </form>
+            
+            <div class="tabs">
+                <form action="/booksreport" method="get">
+                    <input type="hidden" name="numPage" value="0" >
+                    <input class="tab" type="submit" value="Отчет о книгах в наличии" >    
+                </form>
+                <form action="/loanedbookreport" method="get">
+                    <input type="hidden" name="numPage" value="0" >
+                    <input class="tab" type="submit" value="Отчет о взятых книгах" >    
+                </form>
+            </div>
+            
+            <div class="tab-content">
+                <form action="/addbook" method="get">
+                    <input type="submit" class="button" value="Добавить книгу">
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/style_for_books_report_page.css">
+        <title>Отчет о книгах в наличии</title>
+    </head>
+    <body>
+        <div class="header">
+            <a href="/library" class="home-button">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                </svg>
+            </a>
+            <h1>Отчет о книгах в наличии</h1>
+        </div>
+
+        <div class="main">
+            <h2>Список книг в наличии:</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Автор</th>
+                        <th>Жанр</th>
+                        <th>Год издания</th>
+                        <th>Издание</th>
+                        <th>Статус</th>
+                        <th>Дата добавления</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="book : ${books}">
+                        <td th:text="${book.title}">Название книги 1</td>
+                        <td th:text="${book.author.fullName + ' (' + book.author.birthYear + ', ' + book.author.country + ')'}">Автор</td>
+                        <td th:text="${book.genre}">Жанр 1</td>
+                        <td th:text="${book.publicationYear}">2020</td>
+                        <td th:text="${book.publisher.name + ' (' + book.publisher.address + ')'}">Издание</td>
+                        <td th:text="${book.loanStatus}">Статус</td>
+                        <td th:text="${book.addedDate}">Дата добавления</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="pagination">
+                <a th:if="${currentPage - 4 >= 0}" th:text="${currentPage - 3}" th:href="@{/booksreport(numPage=${currentPage - 4})}">1</a>
+                <a th:if="${currentPage - 3 >= 0}" th:text="${currentPage - 2}" th:href="@{/booksreport(numPage=${currentPage - 3})}">2</a>
+                <a th:if="${currentPage - 2 >= 0}" th:text="${currentPage - 1}" th:href="@{/booksreport(numPage=${currentPage - 2})}">3</a>
+                <a th:if="${currentPage - 1 >= 0}" th:text="${currentPage - 0}" th:href="@{/booksreport(numPage=${currentPage - 1})}">4</a>
+                <a th:href="'/booksreport?numPage=' + ${currentPage}" th:text="${currentPage + 1}" class="active">Current Page</a>
+                <a th:if="${currentPage + 2 <= totalPages}" th:text="${currentPage + 2}" th:href="@{/booksreport(numPage=${currentPage + 1})}">2</a>
+                <a th:if="${currentPage + 3 <= totalPages}" th:text="${currentPage + 3}" th:href="@{/booksreport(numPage=${currentPage + 2})}">3</a>
+                <a th:if="${currentPage + 4 <= totalPages}" th:text="${currentPage + 4}" th:href="@{/booksreport(numPage=${currentPage + 3})}">4</a>
+                <a th:if="${currentPage + 5 <= totalPages}" th:text="${currentPage + 5}" th:href="@{/booksreport(numPage=${currentPage + 4})}">5</a>
+            </div>
+        </div>
+    </body>
+</html>

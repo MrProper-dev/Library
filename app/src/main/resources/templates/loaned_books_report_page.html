@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/style_for_loaned_books_report_page.css">
+        <script src="/javascript/scrript_for_loaned_books_report_page.js" defer></script>
+        <title>Отчет о взятых книгах</title>
+    </head>
+<body>
+    <div class="header">
+        <a href="/library" class="home-button">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+        </a>
+        <h1>Отчет о взятых книгах</h1>
+    </div>
+
+    <div class="main">
+        <h2>Список взятых книг:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Автор</th>
+                    <th>Жанр</th>
+                    <th>Год издания</th>
+                    <th>Издание</th>
+                    <th>Дата добавления</th>
+                    <th>Читатель</th>
+                    <th>Номер читателя</th>
+                    <th>Дата выдачи</th>
+                    <th>Срок возврата</th>
+                </tr>
+            </thead>
+            <tbody id="books">
+                <tr th:each="lbook : ${books}">
+                    <td th:text="${lbook.book.title}">Название книги 1</td>
+                    <td th:text="${lbook.book.author.fullName + ' (' + lbook.book.author.birthYear + ', ' + lbook.book.author.country + ')'}">Автор</td>
+                    <td th:text="${lbook.book.genre}">Жанр 1</td>
+                    <td th:text="${lbook.book.publicationYear}">Год</td>
+                    <td th:text="${lbook.book.publisher.name + ' (' + lbook.book.publisher.address + ')'}">Издание</td>
+                    <td th:text="${lbook.book.addedDate}">Дата добавления</td>
+                    <td th:text="${lbook.reader.fullName + ' (' + lbook.reader.passportNumber + ')'}">Читатель</td>
+                    <td th:text="${lbook.reader.phone}">Номер читателя</td>
+                    <td th:text="${lbook.loanDate}">Дата выдачи</td>
+                    <td id="date" th:text="${lbook.returnDate}">Срок возврата</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            <a th:if="${currentPage - 4 >= 0}" th:text="${currentPage - 3}" th:href="@{/loanedbookreport(numPage=${currentPage - 4})}">1</a>
+            <a th:if="${currentPage - 3 >= 0}" th:text="${currentPage - 2}" th:href="@{/loanedbookreport(numPage=${currentPage - 3})}">2</a>
+            <a th:if="${currentPage - 2 >= 0}" th:text="${currentPage - 1}" th:href="@{/loanedbookreport(numPage=${currentPage - 2})}">3</a>
+            <a th:if="${currentPage - 1 >= 0}" th:text="${currentPage - 0}" th:href="@{/loanedbookreport(numPage=${currentPage - 1})}">4</a>
+            <a th:href="'/loanedbookreport?numPage=' + ${currentPage}" th:text="${currentPage + 1}" class="active">Current Page</a>
+            <a th:if="${currentPage + 2 <= totalPages}" th:text="${currentPage + 2}" th:href="@{/loanedbookreport(numPage=${currentPage + 1})}">2</a>
+            <a th:if="${currentPage + 3 <= totalPages}" th:text="${currentPage + 3}" th:href="@{/loanedbookreport(numPage=${currentPage + 2})}">3</a>
+            <a th:if="${currentPage + 4 <= totalPages}" th:text="${currentPage + 4}" th:href="@{/loanedbookreport(numPage=${currentPage + 3})}">4</a>
+            <a th:if="${currentPage + 5 <= totalPages}" th:text="${currentPage + 5}" th:href="@{/loanedbookreport(numPage=${currentPage + 4})}">5</a>
+        </div>
+    </div>
+
+
+</body></html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title th:text = "'Книга: ' + ${book.title}">Книга: Название книги</title>
+        <script src="/javascript/scrript_for_book_page.js" defer></script>
+        <link rel="stylesheet" href="/css/style_for_book_page.css">
+    </head>
+    <body>
+        <div class="header">
+            <a href="/library" class="home-button">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                </svg>
+            </a>
+            <h1 th:text = "'Книга: ' + ${book.title}">Книга: Название книги</h1>
+        </div>
+        
+        <div class="main">
+            <div class="book-info">
+                <img th:src="${'/api/v1/books/image/' + book.id}" alt="Обложка книги" class="book-cover">
+                <div class="book-details">
+                    <p><strong>Название:</strong> <span th:text = "${book.title}">Название книги</span></p>
+                    <p><strong>Автор:</strong> <span th:text = "${book.author.fullName} + ' (' + ${book.author.birthYear} + ', ' + ${book.author.country} + ')'">Автор</span></p>
+                    <p><strong>Жанр:</strong> <span th:text = "${book.genre}">Жанр книги</span></p>
+                    <p><strong>Издание:</strong> <span th:text = "${book.publisher.name} + ', ' + ${book.publisher.address}">Издание</span></p>
+                    <p><strong>Год издания:</strong> <span th:text = "${book.publicationYear}">Год</span></p>
+                </div>
+                <div class="book-description">
+                    <p th:text = "${book.description}">Краткое описание книги</p>
+                </div>
+                <div class="status">
+                    <p><strong>Статус:</strong> <span th:text = "${book.loanStatus}">Доступна для выдачи</span></p>
+                </div>
+
+                <button id="loan-form" class="button" th:book-id="${book.id}">Выдать книгу</button>
+
+                <div id="loan-notification" class="notification">
+                    <div class="notification-box">
+                        <p>Уведомление: Книга уже выдана!</p>
+                        <button onclick="document.getElementById('loan-notification').style.display='none'">OK</button>
+                    </div>
+                </div>
+
+                <button id="return-form" class="button" th:book-id="${book.id}" onclick="document.getElementById('return-confirmation').style.display='flex'">Вернуть книгу</button>
+
+                <!-- Уведомление -->
+                <div id="return-notification" class="notification">
+                    <div class="notification-box">
+                        <p>Уведомление: Книга уже возвращена!</p>
+                        <button onclick="document.getElementById('return-notification').style.display='none'">OK</button>
+                    </div>
+                </div>
+
+                <!-- Предупреждение -->
+                <div id="return-confirmation" class="confirmation">
+                    <div class="confirmation-box">
+                        <p>Предупреждение: Вы точно хотите вернуть книгу?</p>
+                        <button onclick="return sendSubmit()">OK</button>
+                        <button onclick="document.getElementById('return-confirmation').style.display='none'">Отмена</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </body>
+</html>
